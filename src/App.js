@@ -25,14 +25,41 @@ function App() {
   const[gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordList)
 
+
+  const[palavraEscolhida, setPalavraEscolhida] = useState("")
+  const[categoriaEscolhida, setCategoriaEscolhida] = useState("")
+  const[letras, setLetras] = useState([])
+
+  const palavraCategoriaEscolhida = ()=>{
+    const categorias = Object.keys(words)
+    const categoria = categorias[Math.floor(Math.random() * categorias.length)]
+
+    //Escolha da palavra
+
+    const palavra = words[categoria][Math.floor(Math.random(words[categoria].length))]
+
+    const palavraSeparada = palavra.toLowerCase().split("")
+    return {categoria, palavra, palavraSeparada}
+  }
+
+
   //Start game
   const startGame = () =>{
+    //Funcao para escolher a palavra e categoria
+    const {palavra, categoria, palavraSeparada} = palavraCategoriaEscolhida()
+    console.log(palavra, categoria, palavraSeparada)
+
+    setCategoriaEscolhida(categoria)
+    setPalavraEscolhida(palavraEscolhida)
+    setLetras(letras)
     setGameStage(stages[1].name)
   }
+
   //processamento de input de letra
   const verificarLetra = () =>{
     setGameStage(stages[2].name)
   }
+
   //Restart do jogo
   const restartGame = () =>{
     setGameStage(stages[0].name)
